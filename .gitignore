@@ -1,0 +1,25 @@
+# System folders
+01_Live_Workspace/
+02_L0_Raw_Sources/
+03_L1_Notebook_Backups/
+04_L3_Canvas_Outputs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Local config
+local.yaml
+*.local.yaml
