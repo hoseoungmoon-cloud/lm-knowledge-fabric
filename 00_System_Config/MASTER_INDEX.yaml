@@ -1,0 +1,83 @@
+system:
+  name: LM Knowledge Fabric
+  version: v1.0
+  purpose: Cross-platform knowledge consolidation
+  created: 2026-09-03
+  maintainer: Ho-Seoung Moon
+
+layers:
+  l0:
+    label: raw_sources
+    state: transient
+    location: Google Drive / Proton Drive
+    max_sources_per_notebook: 20
+  l1:
+    label: notebooklm_knowledge
+    state: grounded
+    location: NotebookLM Notebooks
+    technology: Google NotebookLM
+  l2:
+    label: jsonld_master_graph
+    state: canonical
+    location: GitHub / Local Git
+    format: JSON-LD
+  l3:
+    label: canvas_output
+    state: operational
+    location: Google Docs / Canvas
+    formats: [ODT, LaTeX, Markdown, DOCX, PDF]
+
+notebooks:
+  - notebook_id: NB-001
+    title: LM Knowledge Fabric - Primary
+    status: active
+    source_count: 0
+    clusters:
+      - label: wissen
+        status: active
+      - label: prozess
+        status: active
+      - label: index
+        status: active
+      - label: offen
+        status: active
+      - label: archiv
+        status: active
+
+master_index:
+  index_id: INDEX_00MASTERINDEX
+  sections:
+    - knowledge
+    - process
+    - open
+    - archive
+  companion_notes:
+    - WISSEN_JSONLD-Schema_v1
+    - PROZESS_Sync-Workflow_v1
+    - INDEX_Button-Registry_v1
+
+handoff:
+  source: notebooklm
+  target: gemini_canvas
+  mode: transform
+  input_type: summary_snippet
+  output_type: document_or_template
+
+governance:
+  prefix_legend:
+    WISSEN: stable facts
+    PROZESS: rules/workflows
+    INDEX: navigation
+    OFFEN: undigested material
+    ARCHIV: obsolete/replaced
+  
+  source_limits:
+    active_notebook_max: 20
+    notebooklm_source_max: 50
+    words_per_source_max: 500000
+    
+  sync_policy:
+    notebooklm_first: true
+    jsonld_canonical: true
+    yaml_operational: true
+    cia_lcv_compliant: true
