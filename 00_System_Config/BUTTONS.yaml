@@ -1,0 +1,96 @@
+system:
+  name: LM Button Registry
+  version: v1.0
+  purpose: Operational control for NotebookLM, Gemini, Canvas and Live Document
+  source_of_truth: external_yaml
+  notebooklm_ref: INDEX_Button-Registry_v1
+
+categories:
+  nav:
+    description: Overview, status, active notes
+  write:
+    description: New notes, condensation, summaries
+  sort:
+    description: Labels, clusters, duplicates, archive
+  sync:
+    description: Live Document, JSON-LD, Master Index
+  export:
+    description: Canvas, Gemini, document output
+
+buttons:
+  - button_id: BTN-001
+    name: System-Ü°bersicht
+    category: nav
+    trigger_prompt: "Zeige mir INDEX_00MASTERINDEX und alle aktiven WISSEN_- und PROZESS_-Notizen."
+    output_type: status_list
+    store_target: Live Document
+    sync_target: INDEX_00MASTERINDEX
+    dedupe_key: overview_current
+    enabled: true
+    notes: "Daily entry point"
+
+  - button_id: BTN-002
+    name: Neue WISSEN-Notiz
+    category: write
+    trigger_prompt: "Erstelle aus den markierten Quellen eine neue WISSEN_-Notiz im Format PRÄ°FIX_Thema_v1 mit maximal 5 Stichpunkten und Tags."
+    output_type: notebook_note
+    store_target: NotebookLM
+    sync_target: LM_NOTEBOOKS.jsonld
+    dedupe_key: note_title
+    enabled: true
+    notes: "Only for genuine new knowledge"
+
+  - button_id: BTN-003
+    name: Quellen ordnen
+    category: sort
+    trigger_prompt: "Ordne diese Quellen in WISSEN, PROZESS, INDEX, OFFEN oder ARCHIV ein und liste mögliche Dubletten kurz auf."
+    output_type: classification_report
+    store_target: Live Document
+    sync_target: MASTER_INDEX.yaml
+    dedupe_key: source_ref
+    enabled: true
+    notes: "Use auto-labels as base, then manually stabilize"
+
+  - button_id: BTN-004
+    name: Workflow-Sync
+    category: sync
+    trigger_prompt: "Aktualisiere PROZESS_Sync-Workflow_v1 mit allen Ä€nderungen von heute."
+    output_type: workflow_patch
+    store_target: NotebookLM
+    sync_target: LM_NOTEBOOKS.jsonld
+    dedupe_key: workflow_version
+    enabled: true
+    notes: "Daily sync"
+
+  - button_id: BTN-005
+    name: Canvas-Export
+    category: export
+    trigger_prompt: "Erzeuge aus den relevanten JSON-LD-Knoten einen Canvas-Entwurf für Profil [Profilname]."
+    output_type: canvas_draft
+    store_target: Canvas
+    sync_target: CANVAS_TEMPLATES.yaml
+    dedupe_key: export_profile
+    enabled: true
+    notes: "Output only from L2/Live state"
+
+  - button_id: BTN-006
+    name: Archivpflege
+    category: sort
+    trigger_prompt: "Zeige mir alle ARCHIV_-Notizen und markiere Inhalte, die reaktivierbar sind."
+    output_type: archive_report
+    store_target: Live Document
+    sync_target: LM_NOTEBOOKS.jsonld
+    dedupe_key: archive_ref
+    enabled: true
+    notes: "Don't delete, change status only"
+
+  - button_id: BTN-007
+    name: Dublettencheck
+    category: sync
+    trigger_prompt: "Vergleiche neue Quellen mit vorhandenen WISSEN_-Notizen und markiere Dubletten oder Ä€berschneidungen."
+    output_type: dedupe_report
+    store_target: Live Document
+    sync_target: LM_NOTEBOOKS.jsonld
+    dedupe_key: content_fingerprint
+    enabled: true
+    notes: "Always run before creating new notes"
