@@ -1,0 +1,97 @@
+{
+  "@context": {
+    "ks": "https://example.org/ks#",
+    "schema": "https://schema.org/",
+    "id": "@id",
+    "type": "@type",
+    "name": "schema:name",
+    "description": "schema:description",
+    "Notebook": "ks:Notebook",
+    "Note": "ks:Note",
+    "DocumentSource": "ks:DocumentSource",
+    "Document": "ks:Document",
+    "ProcessRule": "ks:ProcessRule",
+    "ArchiveNote": "ks:ArchiveNote",
+    "ExportTemplate": "ks:ExportTemplate",
+    "ProtonSegment": "ks:ProtonSegment",
+    "status": "ks:status",
+    "prefix": "ks:prefix",
+    "notebookRef": "ks:notebookRef",
+    "sourceRef": "ks:sourceRef",
+    "tags": "ks:tags",
+    "createdAt": "schema:dateCreated",
+    "lastModified": "schema:dateModified"
+  },
+  "@graph": [
+    {
+      "id": "notebook:NB-001",
+      "type": "Notebook",
+      "name": "LM Knowledge Fabric - Primary",
+      "status": "ACTIVE",
+      "tags": ["knowledge", "primary", "fabric"],
+      "description": "Primary NotebookLM workspace for knowledge consolidation"
+    },
+    {
+      "id": "note:INDEX_00MASTERINDEX",
+      "type": "Note",
+      "name": "INDEX_00MASTERINDEX",
+      "prefix": "INDEX",
+      "description": "Central navigation and control node for entire knowledge architecture",
+      "notebookRef": "notebook:NB-001",
+      "status": "ACTIVE",
+      "tags": ["navigation", "index", "system"]
+    },
+    {
+      "id": "note:WISSEN_JSONLD-Schema_v1",
+      "type": "Note",
+      "name": "WISSEN_JSONLD-Schema_v1",
+      "prefix": "WISSEN",
+      "description": "Core JSON-LD knowledge graph structure definition",
+      "notebookRef": "notebook:NB-001",
+      "status": "ACTIVE",
+      "tags": ["jsonld", "schema", "graph"]
+    },
+    {
+      "id": "note:PROZESS_Sync-Workflow_v1",
+      "type": "Note",
+      "name": "PROZESS_Sync-Workflow_v1",
+      "prefix": "PROZESS",
+      "description": "Standard workflow for consolidation and synchronization",
+      "notebookRef": "notebook:NB-001",
+      "status": "ACTIVE",
+      "tags": ["workflow", "sync", "processes"]
+    },
+    {
+      "id": "process:daily-sync-v1",
+      "type": "ProcessRule",
+      "name": "PROZESS_DailySync_v1",
+      "description": "Daily synchronization of NotebookLM, Live Document and JSON-LD",
+      "status": "ACTIVE",
+      "tags": ["sync", "daily", "workflow"]
+    },
+    {
+      "id": "template:odt-report-v1",
+      "type": "ExportTemplate",
+      "name": "ODT-Report-Template",
+      "description": "Standard ODT report export template",
+      "status": "ACTIVE",
+      "tags": ["odt", "export", "report"]
+    },
+    {
+      "id": "template:latex-article-v1",
+      "type": "ExportTemplate",
+      "name": "LaTeX-Article-Template",
+      "description": "Standard LaTeX article export template",
+      "status": "ACTIVE",
+      "tags": ["latex", "export", "article"]
+    },
+    {
+      "id": "proton:segment-schema-v1",
+      "type": "ProtonSegment",
+      "name": "ProtonSegment-Schema",
+      "description": "Schema for sanitized segments from Proton Drive/Lumo",
+      "status": "ACTIVE",
+      "tags": ["proton", "segment", "adapter"]
+    }
+  ]
+}
