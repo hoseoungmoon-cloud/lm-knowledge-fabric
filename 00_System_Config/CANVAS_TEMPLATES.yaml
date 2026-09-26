@@ -1,0 +1,72 @@
+# CANVAS_TEMPLATES.yaml
+# LM Knowledge Fabric — Export-Profile für L3 (Canvas/Gemini-Ausgabeschicht)
+# Referenziert seit v1.0 in README.md; ergänzt im Rahmen der Konsolidierung v1.2.0
+
+version: "1.0"
+last_modified: "2026-09-27"
+
+templates:
+  - template_id: TPL-001
+    name: House-Markdown
+    description: "Hausinterner Markdown-Standard für Live Document, GitHub-Docs, Notizen"
+    output_format: markdown
+    heading_map:
+      h1: "# {title}"
+      h2: "## {section}"
+      h3: "### {subsection}"
+    frontmatter: false
+    use_case: ["Live Document", "README-Updates", "Interne Notizen"]
+
+  - template_id: TPL-002
+    name: ODT-Report
+    description: "OpenDocument-Report für formelle Berichte, kompatibel mit LibreOffice/Word"
+    output_format: odt
+    office_style_map:
+      title: "Heading 1"
+      section: "Heading 2"
+      subsection: "Heading 3"
+      body: "Normal"
+      quote: "Quotation"
+    use_case: ["Formelle Berichte", "Rechtssystem-Dokumente", "Behörden-Korrespondenz"]
+
+  - template_id: TPL-003
+    name: Word-Structured
+    description: "Strukturiertes .docx-Format mit Kapitel-Nummerierung"
+    output_format: docx
+    office_style_map:
+      title: "Title"
+      section: "Heading 1"
+      subsection: "Heading 2"
+      body: "Body Text"
+    numbering: true
+    use_case: ["Vertragsentwürfe", "Schriftsätze", "Längere Dokumentationen"]
+
+  - template_id: TPL-004
+    name: LaTeX-Article
+    description: "LaTeX-Artikel-Klasse für akademische/technische Dokumente"
+    output_format: tex
+    latex_map:
+      documentclass: "article"
+      title: "\\title{{{title}}}"
+      section: "\\section{{{section}}}"
+      subsection: "\\subsection{{{subsection}}}"
+    packages: ["inputenc", "babel", "hyperref"]
+    use_case: ["Technische Spezifikationen", "Whitepapers", "Akademische Notizen"]
+
+  - template_id: TPL-005
+    name: YAML-Generic
+    description: "Generisches YAML-Exportformat für Konfigurations- und Steuerdaten"
+    output_format: yaml
+    schema_ref: "00_System_Config/MASTER_INDEX.yaml"
+    use_case: ["Config-Exporte", "Button-Definitionen", "Automatisierungs-Parameter"]
+
+  - template_id: TPL-006
+    name: JSON-LD-Generic
+    description: "Generisches JSON-LD-Exportformat, kompatibel mit L2-Mastergraph-Schema"
+    output_format: jsonld
+    schema_ref: "00_System_Config/LM_NOTEBOOKS.jsonld"
+    use_case: ["Graph-Erweiterungen", "Node-Exporte", "Externe RAG-Integration"]
+
+# Verwendung (Button 5 — Canvas-Export):
+# Trigger-Prompt: "Exportiere [Notiz/Dokument] als [template_id] Format."
+# Sync-Target: 04_L3_Canvas_Outputs/
